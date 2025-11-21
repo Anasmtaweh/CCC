@@ -39,4 +39,67 @@ class _Page1State extends State<Page1> {
     );
   }
 
- 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Car Care Check - Step 1'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            const SizedBox(height: 20.0),
+            const Text(
+              'Select Car Brand',
+              style: TextStyle(fontSize: 22.0),
+            ),
+            const SizedBox(height: 20.0),
+            // Radio group for brand
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('BMW', style: TextStyle(fontSize: 18.0)),
+                Radio(
+                  value: 'BMW',
+                  groupValue: _brand,
+                  onChanged: (val) {
+                    _setBrand(val as String);
+                  },
+                ),
+                const Text('Toyota', style: TextStyle(fontSize: 18.0)),
+                Radio(
+                  value: 'Toyota',
+                  groupValue: _brand,
+                  onChanged: (val) {
+                    _setBrand(val as String);
+                  },
+                ),
+                const Text('Suzuki', style: TextStyle(fontSize: 18.0)),
+                Radio(
+                  value: 'Suzuki',
+                  groupValue: _brand,
+                  onChanged: (val) {
+                    _setBrand(val as String);
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 20.0),
+            // Image that changes instantly with selected brand
+            Image.asset(
+              _brandImage,
+              width: 250.0,
+              height: 250.0,
+            ),
+            const SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: _openPage2,
+              child: const Icon(Icons.navigate_next, size: 40),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
