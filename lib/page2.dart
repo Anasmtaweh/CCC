@@ -40,7 +40,7 @@ class _Page2State extends State<Page2> {
     super.dispose();
   }
 
-      // helper to convert a numeric text into recommendation with icons
+  // helper to convert a numeric text into recommendation with icons
   String _oilMessageFromText(String text) {
     if (text.trim() == '') {
       return '⚠️ No mileage entered.';
@@ -107,7 +107,7 @@ class _Page2State extends State<Page2> {
     return '❌ Battery might be old, consider checking/ replacing it.';
   }
 
-   void _openSummary(String brand) {
+  void _openSummary(String brand) {
     final oilMsg = _oil
         ? _oilMessageFromText(_oilController.text)
         : 'ℹ️ Oil change not checked in this session.';
@@ -142,6 +142,7 @@ class _Page2State extends State<Page2> {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final String brand =
@@ -162,7 +163,6 @@ class _Page2State extends State<Page2> {
                 style: TextStyle(fontSize: 20.0),
               ),
               const SizedBox(height: 10.0),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -188,7 +188,6 @@ class _Page2State extends State<Page2> {
                 ),
               ),
               const SizedBox(height: 10.0),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -201,7 +200,7 @@ class _Page2State extends State<Page2> {
                   ),
                 ],
               ),
-                           DropdownMenu(
+              DropdownMenu(
                 width: 260.0,
                 initialSelection: _batterySelection,
                 onSelected: (value) {
@@ -215,7 +214,6 @@ class _Page2State extends State<Page2> {
                 }).toList(),
               ),
               const SizedBox(height: 10.0),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -228,3 +226,99 @@ class _Page2State extends State<Page2> {
                   ),
                 ],
               ),
+              SizedBox(
+                width: 260.0,
+                height: 50.0,
+                child: TextField(
+                  controller: _tireController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Last time checked (e.g. psi or days)',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Brake pads', style: TextStyle(fontSize: 18.0)),
+                  Checkbox(
+                    value: _brakes,
+                    onChanged: (bool? value) {
+                      setState(() => _brakes = value ?? false);
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 260.0,
+                height: 50.0,
+                child: TextField(
+                  controller: _brakesController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Km since brake service',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Air filter', style: TextStyle(fontSize: 18.0)),
+                  Checkbox(
+                    value: _airFilter,
+                    onChanged: (bool? value) {
+                      setState(() => _airFilter = value ?? false);
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 260.0,
+                height: 50.0,
+                child: TextField(
+                  controller: _airFilterController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Km since filter change',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Spark plugs', style: TextStyle(fontSize: 18.0)),
+                  Checkbox(
+                    value: _spark,
+                    onChanged: (bool? value) {
+                      setState(() => _spark = value ?? false);
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 260.0,
+                height: 50.0,
+                child: TextField(
+                  controller: _sparkController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Km since spark plugs change',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                onPressed: () => _openSummary(brand),
+                child: const Icon(Icons.navigate_next, size: 40),
+              ),
+              const SizedBox(height: 20.0),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
