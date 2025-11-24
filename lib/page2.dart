@@ -201,3 +201,30 @@ class _Page2State extends State<Page2> {
                   ),
                 ],
               ),
+                           DropdownMenu(
+                width: 260.0,
+                initialSelection: _batterySelection,
+                onSelected: (value) {
+                  setState(() {
+                    _batterySelection = value as String?;
+                  });
+                },
+                dropdownMenuEntries: _batteryOptions
+                    .map<DropdownMenuEntry<String>>((String option) {
+                  return DropdownMenuEntry(value: option, label: option);
+                }).toList(),
+              ),
+              const SizedBox(height: 10.0),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Tire pressure', style: TextStyle(fontSize: 18.0)),
+                  Checkbox(
+                    value: _tire,
+                    onChanged: (bool? value) {
+                      setState(() => _tire = value ?? false);
+                    },
+                  ),
+                ],
+              ),
