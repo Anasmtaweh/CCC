@@ -175,3 +175,29 @@ class _Page2State extends State<Page2> {
                   ),
                 ],
               ),
+              SizedBox(
+                width: 260.0,
+                height: 50.0,
+                child: TextField(
+                  controller: _oilController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Km since last oil change',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10.0),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Battery', style: TextStyle(fontSize: 18.0)),
+                  Checkbox(
+                    value: _battery,
+                    onChanged: (bool? value) {
+                      setState(() => _battery = value ?? false);
+                    },
+                  ),
+                ],
+              ),
