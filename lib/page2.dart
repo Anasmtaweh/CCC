@@ -51,11 +51,11 @@ class _Page2State extends State<Page2> {
     try {
       double km = double.parse(text);
       if (km < 5000) {
-        return '✔️ Oil change is recent.\n   (Mileage since last change: $km km)';
+        return '✔️ Oil change is recent.\n   (Mileage until next change: ${5000 - km} km)';
       } else if (km < 8000) {
-        return '⚠️ Consider changing oil soon.\n   (Mileage since last change: $km km)';
+        return '⚠️ Consider changing oil soon.\n   (Mileage until next change: ${5000 - km} km)';
       } else {
-        return '❌ Oil change overdue, please service.\n   (Mileage since last change: $km km)';
+        return '❌ Oil change overdue, please service.\n   (Mileage until next change: ${5000 - km} km)';
       }
     } catch (e) {
       return '⚠️ Invalid number for oil mileage.';
