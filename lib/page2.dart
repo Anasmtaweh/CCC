@@ -107,4 +107,38 @@ class _Page2State extends State<Page2> {
     return '❌ Battery might be old, consider checking/ replacing it.';
   }
 
- 
+   void _openSummary(String brand) {
+    final oilMsg = _oil
+        ? _oilMessageFromText(_oilController.text)
+        : 'ℹ️ Oil change not checked in this session.';
+    final tireMsg = _tire
+        ? _tireMessage(_tireController.text)
+        : 'ℹ️ Tire pressure not checked.';
+    final brakesMsg = _brakes
+        ? _brakeMessage(_brakesController.text)
+        : 'ℹ️ Brake pads not checked.';
+    final airFilterMsg = _airFilter
+        ? _airFilterMessage(_airFilterController.text)
+        : 'ℹ️ Air filter not checked.';
+    final sparkMsg = _spark
+        ? _sparkMessage(_sparkController.text)
+        : 'ℹ️ Spark plugs not checked.';
+    final batteryMsg = _batteryMessage();
+
+    final data = CarCareData(
+      brand,
+      oilMsg,
+      batteryMsg,
+      tireMsg,
+      brakesMsg,
+      airFilterMsg,
+      sparkMsg,
+    );
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const Page3(),
+        settings: RouteSettings(arguments: data),
+      ),
+    );
+  }
