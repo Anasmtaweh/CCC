@@ -142,3 +142,36 @@ class _Page2State extends State<Page2> {
       ),
     );
   }
+  @override
+  Widget build(BuildContext context) {
+    final String brand =
+        (ModalRoute.of(context)?.settings.arguments as String?) ?? 'Unknown';
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Car Care Check - $brand'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 10.0),
+              const Text(
+                'Select checks and enter details',
+                style: TextStyle(fontSize: 20.0),
+              ),
+              const SizedBox(height: 10.0),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Oil change', style: TextStyle(fontSize: 18.0)),
+                  Checkbox(
+                    value: _oil,
+                    onChanged: (bool? value) {
+                      setState(() => _oil = value ?? false);
+                    },
+                  ),
+                ],
+              ),
