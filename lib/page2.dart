@@ -69,4 +69,18 @@ class _Page2State extends State<Page2> {
     return '✔️ $label value entered: $text';
   }
 
-  
+  String _batteryMessage() {
+    if (!_battery) {
+      return 'ℹ️ Battery not checked in this session.';
+    }
+    if (_batterySelection == null) {
+      return '⚠️ Please choose a battery option.';
+    }
+    if (_batterySelection == 'Less than 1 week') {
+      return '✔️ Battery recently changed.';
+    }
+    if (_batterySelection == '1 week to 6 months') {
+      return '⚠️ Battery is OK, just keep an eye on it.';
+    }
+    return '❌ Battery might be old, consider checking/ replacing it.';
+  }
