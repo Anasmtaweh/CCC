@@ -233,7 +233,7 @@ class _Page2State extends State<Page2> {
                   controller: _tireController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Last time checked (e.g. psi or days)',
+                    hintText: 'What is the PSI of Tire',
                   ),
                 ),
               ),
