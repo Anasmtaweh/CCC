@@ -107,7 +107,8 @@ class _Page2State extends State<Page2> {
     return '❌ Battery might be old, consider checking/ replacing it.';
   }
 
-  void _openSummary(String brand) {
+  // CHANGED: take CarCareData instead of String brand
+  void _openSummary(CarCareData currentData) {
     final oilMsg = _oil
         ? _oilMessageFromText(_oilController.text)
         : 'ℹ️ Oil change not checked in this session.';
@@ -125,14 +126,16 @@ class _Page2State extends State<Page2> {
         : 'ℹ️ Spark plugs not checked.';
     final batteryMsg = _batteryMessage();
 
+    // NEW: keep plate and brand from currentData
     final data = CarCareData(
-      brand,
-      oilMsg,
-      batteryMsg,
-      tireMsg,
-      brakesMsg,
-      airFilterMsg,
-      sparkMsg,
+      plate: currentData.plate,
+      brand: currentData.brand,
+      oil: oilMsg,
+      battery: batteryMsg,
+      tire: tireMsg,
+      brakes: brakesMsg,
+      airFilter: airFilterMsg,
+      spark: sparkMsg,
     );
 
     Navigator.of(context).push(
@@ -145,8 +148,22 @@ class _Page2State extends State<Page2> {
 
   @override
   Widget build(BuildContext context) {
-    final String brand =
-        (ModalRoute.of(context)?.settings.arguments as String?) ?? 'Unknown';
+    // CHANGED: read CarCareData instead of String
+    final args = ModalRoute.of(context)?.settings.arguments;
+    final CarCareData currentData = (args is CarCareData)
+        ? args
+        : CarCareData(
+            plate: '',
+            brand: 'Unknown',
+            oil: '',
+            battery: '',
+            tire: '',
+            brakes: '',
+            airFilter: '',
+            spark: '',
+          );
+
+    final String brand = currentData.brand;
 
     return Scaffold(
       appBar: AppBar(
@@ -311,7 +328,7 @@ class _Page2State extends State<Page2> {
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(
-                onPressed: () => _openSummary(brand),
+                onPressed: () => _openSummary(currentData),
                 child: const Icon(Icons.navigate_next, size: 40),
               ),
               const SizedBox(height: 20.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'page2.dart';
+import 'car_care_data.dart';  // NEW
 
 class Page1 extends StatefulWidget {
   const Page1({Key? key}) : super(key: key);
@@ -9,10 +10,8 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
-  // selected brand text
   String _brand = 'BMW';
 
-  // we map brand -> image asset
   String get _brandImage {
     if (_brand == 'BMW') {
       return 'assets/bmw.png';
@@ -30,11 +29,42 @@ class _Page1State extends State<Page1> {
   }
 
   void _openPage2() {
+    // get existing CarCareData (which already has plate set)
+    final args = ModalRoute.of(context)?.settings.arguments;
+    CarCareData data;
+
+    if (args is CarCareData) {
+      data = args;
+    } else {
+      // fallback if nothing was passed
+      data = CarCareData(
+        plate: '',
+        brand: '',
+        oil: '',
+        battery: '',
+        tire: '',
+        brakes: '',
+        airFilter: '',
+        spark: '',
+      );
+    }
+
+    // update brand only, keep plate and others
+    data = CarCareData(
+      plate: data.plate,
+      brand: _brand,
+      oil: data.oil,
+      battery: data.battery,
+      tire: data.tire,
+      brakes: data.brakes,
+      airFilter: data.airFilter,
+      spark: data.spark,
+    );
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const Page2(),
-        // we send the selected brand using RouteSettings
-        settings: RouteSettings(arguments: _brand),
+        settings: RouteSettings(arguments: data),
       ),
     );
   }
@@ -55,7 +85,6 @@ class _Page1State extends State<Page1> {
               style: TextStyle(fontSize: 22.0),
             ),
             const SizedBox(height: 20.0),
-            // Radio group for brand
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -63,30 +92,23 @@ class _Page1State extends State<Page1> {
                 Radio(
                   value: 'BMW',
                   groupValue: _brand,
-                  onChanged: (val) {
-                    _setBrand(val as String);
-                  },
+                  onChanged: (val) => _setBrand(val as String),
                 ),
                 const Text('Toyota', style: TextStyle(fontSize: 18.0)),
                 Radio(
                   value: 'Toyota',
                   groupValue: _brand,
-                  onChanged: (val) {
-                    _setBrand(val as String);
-                  },
+                  onChanged: (val) => _setBrand(val as String),
                 ),
                 const Text('Suzuki', style: TextStyle(fontSize: 18.0)),
                 Radio(
                   value: 'Suzuki',
                   groupValue: _brand,
-                  onChanged: (val) {
-                    _setBrand(val as String);
-                  },
+                  onChanged: (val) => _setBrand(val as String),
                 ),
               ],
             ),
             const SizedBox(height: 20.0),
-            // Image that changes instantly with selected brand
             Image.asset(
               _brandImage,
               width: 250.0,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'page1.dart';
+import 'plate_login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Car Care Check',
       theme: ThemeData(useMaterial3: true),
-      home: const Page1(), // first screen
+      home: const PlateLoginPage(),
     );
   }
 }

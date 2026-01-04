@@ -1,4 +1,5 @@
 class CarCareData {
+  final String plate;
   final String brand;
   final String oil;
   final String battery;
@@ -7,13 +8,14 @@ class CarCareData {
   final String airFilter;
   final String spark;
 
-  CarCareData(
-    this.brand,
-    this.oil,
-    this.battery,
-    this.tire,
-    this.brakes,
-    this.airFilter,
-    this.spark,
-  );
+  CarCareData({
+    required this.plate,
+    required this.brand,
+    required this.oil,
+    required this.battery,
+    required this.tire,
+    required this.brakes,
+    required this.airFilter,
+    required this.spark,
+  });
 }
